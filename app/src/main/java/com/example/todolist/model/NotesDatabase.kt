@@ -9,10 +9,18 @@ import com.example.todolist.entities.Note
 @Database(entities = arrayOf(Note::class), version = 1)
 abstract class NotesDatabase: RoomDatabase() {
     abstract fun noteDao(): NoteDao
-    companion object: SingletonHolder<NotesDatabase, Context>({
-        Room.databaseBuilder(it.applicationContext,
-            NotesDatabase::class.java, "noteDB")
-            .build()
-    }){
+    companion object{
+        private var notesDatabase: NotesDatabase? = null
+        fun getInstance(context: Context): NotesDatabase? {
+            if (notesDatabase == null) {
+                synchronized(NotesDatabase::class) {
+                    notesDatabase = Room.databaseBuilder(
+                        context.applicationContext,
+                        NotesDatabase::class.java, "notes_database"
+                    ).build()
+                }
+            }
+            return notesDatabase
+        }
     }
 }
