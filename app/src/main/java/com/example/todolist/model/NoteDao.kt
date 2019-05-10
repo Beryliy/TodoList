@@ -1,6 +1,6 @@
 package com.example.todolist.model
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.todolist.entities.Note
 

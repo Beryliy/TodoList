@@ -9,7 +9,8 @@ import com.example.todolist.R
 import com.example.todolist.entities.Note
 import java.text.SimpleDateFormat
 
-class NotesListAdapter(private val notes: MutableList<Note>): RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
+class NotesListAdapter(): RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
+    private lateinit var notes: List<Note>
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val changeDateTV: TextView
         val changeTimeTV: TextView
@@ -22,10 +23,15 @@ class NotesListAdapter(private val notes: MutableList<Note>): RecyclerView.Adapt
         }
     }
 
-    fun add(note: Note){
-        notes += note
+    fun setNotes(notes: List<Note>){
+        this.notes = notes
         notifyDataSetChanged()
     }
+
+    /*fun add(note: Note){
+        notes!! += note
+        notifyDataSetChanged()
+    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.note_recyclerview_item, parent, false)

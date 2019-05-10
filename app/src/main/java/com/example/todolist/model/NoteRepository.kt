@@ -1,8 +1,8 @@
 package com.example.todolist.model
 
 import android.app.Application
-import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
+import androidx.lifecycle.LiveData
 import com.example.todolist.entities.Note
 
 class NoteRepository(application: Application) {
@@ -12,7 +12,7 @@ class NoteRepository(application: Application) {
         val database = NotesDatabase.getInstance(application.applicationContext)
         dao = database!!.noteDao()
         observableNotes = dao.getAll()
-        }
+    }
 
     fun insertNotes(note: Note){
         InsertAsyncTask(dao).execute(note)
