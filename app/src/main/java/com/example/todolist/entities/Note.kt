@@ -10,6 +10,6 @@ import org.jetbrains.annotations.NotNull
 data class Note(
     @PrimaryKey val id: Int,
     @NotNull
-    @ColumnInfo val creationTime : Int,
+    @ColumnInfo val creationTime : Long,
     @NotNull
     @ColumnInfo var body : String)
