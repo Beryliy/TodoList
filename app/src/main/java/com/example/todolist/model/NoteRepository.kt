@@ -1,16 +1,18 @@
 package com.example.todolist.model
 
 import android.app.Application
+import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import com.example.todolist.entities.Note
 
 class NoteRepository(application: Application) {
     private val dao: NoteDao
-
+    private val observableNotes: LiveData<List<Note>>
     init{
         val database = NotesDatabase.getInstance(application.applicationContext)
         dao = database!!.noteDao()
-    }
+        observableNotes = dao.getAll()
+        }
 
     fun insertNotes(note: Note){
         InsertAsyncTask(dao).execute(note)
@@ -24,9 +26,7 @@ class NoteRepository(application: Application) {
         DeleteAsyncTask(dao).execute(note)
     }
 
-    fun getAllNodes(){
-        //Implement load data using ViewModel
-    }
+    fun getAllNodes() = observableNotes
 
     fun getNodesById(id: Int) = GetByIdAsyncTask(dao).execute(id)
 

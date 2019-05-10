@@ -1,12 +1,13 @@
 package com.example.todolist.model
 
+import android.arch.lifecycle.LiveData
 import androidx.room.*
 import com.example.todolist.entities.Note
 
 @Dao
 interface NoteDao {
     @Query("SELECT * FROM note")
-    fun getAll(): List<Note>
+    fun getAll(): LiveData<List<Note>>
 
     @Query("SELECT * FROM note WHERE id = :id")
     fun getById(id: Int): Note
