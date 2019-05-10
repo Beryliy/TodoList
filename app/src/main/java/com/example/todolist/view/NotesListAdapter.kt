@@ -18,11 +18,13 @@ class NotesListAdapter(private val notes: MutableList<Note>): RecyclerView.Adapt
             changeDateTV = view.findViewById(R.id.change_date_TV)
             changeTimeTV = view.findViewById(R.id.change_time_TV)
             noteBodyTV = view.findViewById(R.id.note_body_TV)
+            //TODO: add OnClickListener view.setOnClickListener()
         }
     }
 
     fun add(note: Note){
         notes += note
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
