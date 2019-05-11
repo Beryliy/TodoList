@@ -9,10 +9,10 @@ import com.example.todolist.model.NoteRepository
 
 class MainViewModel(application: Application): AndroidViewModel(application){
     private val observableNotes: LiveData<List<Note>>
-    private val repository: NoteRepository
+    private val repository: NoteRepository?
     init{
-        repository = NoteRepository(application)
-        observableNotes = repository.getAllNodes()
+        repository = NoteRepository.getInstance(application)
+        observableNotes = repository!!.getAllNodes()
     }
 
 
