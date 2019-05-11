@@ -28,11 +28,11 @@ class NoteRepository private constructor(application: Application) {
 
     fun getAllNotes() = observableNotes
 
-    fun getNoteById(id: Int): Note? {
+    fun getNoteById(id: Int): LiveData<Note>? {
         if(id == -1){
             return null
         }else{
-            var note: Note? = null
+            var note: LiveData<Note>? = null
             val asyncTask = GetByIdAsyncTask(dao, note)
             asyncTask.execute(id)
             return note
@@ -57,9 +57,9 @@ class NoteRepository private constructor(application: Application) {
         }
     }
 
-    private class GetByIdAsyncTask(val dao: NoteDao, var note: Note?): AsyncTask<Int, Unit, Note>(){
-        override fun doInBackground(vararg params: Int?): Note = dao.getById(params[0]!!)
-        override fun onPostExecute(result: Note?) { note = result }
+    private class GetByIdAsyncTask(val dao: NoteDao, var note: LiveData<Note>?): AsyncTask<Int, Unit, LiveData<Note>>(){
+        override fun doInBackground(vararg params: Int?): LiveData<Note> = dao.getById(params[0]!!)
+        override fun onPostExecute(result: LiveData<Note>?) { note = result }
     }
     companion object{
         private var noteRepository: NoteRepository? = null

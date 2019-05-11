@@ -12,7 +12,7 @@ class MainViewModel(application: Application): AndroidViewModel(application){
     private val repository: NoteRepository?
     init{
         repository = NoteRepository.getInstance(application)
-        observableNotes = repository!!.getAllNodes()
+        observableNotes = repository!!.getAllNotes()
     }
 
 

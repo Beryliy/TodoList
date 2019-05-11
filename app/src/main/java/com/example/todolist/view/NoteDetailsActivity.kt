@@ -4,26 +4,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.example.todolist.R
-import com.example.todolist.model.NoteRepository
+import com.example.todolist.viewModel.DetailsViewModel
 import kotlinx.android.synthetic.main.activity_note_details.*
 
 class NoteDetailsActivity : AppCompatActivity() {
-    private lateinit var repository: NoteRepository
-    private lateinit var activityStrategy: DetailsActivityStrategy
+    private lateinit var detailsViewModel: DetailsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_details)
-        repository = NoteRepository.getInstance(application)!!
+        detailsViewModel = ViewModelProviders.of(this).get(DetailsViewModel::class.java)
         val currentNoteId = intent.getIntExtra("noteId", -1)
-        if(currentNoteId == -1){
+        detailsViewModel.activityCreationHandler(currentNoteId)
+        if(currentNoteId == -1) {
             invalidateOptionsMenu()
-            activityStrategy = CreateActivityStrategy()
-        }else{
-            activityStrategy = UpdateActivityStrategy()
         }
         save_note_B.setOnClickListener({
-            activityStrategy.save(repository.getNoteById(currentNoteId)!!, note_body_ET.text.toString(), repository)
+            detailsViewModel.actionSave(note_body_ET.text.toString())
         })
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
