@@ -1,6 +1,7 @@
 package com.example.todolist.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ class NoteDetailsActivity : AppCompatActivity() {
             invalidateOptionsMenu()
         }
         save_note_B.setOnClickListener({
+            Log.d("debug", "onClick()")
             detailsViewModel.actionSave(note_body_ET.text.toString())
         })
     }

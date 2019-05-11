@@ -1,6 +1,7 @@
 package com.example.todolist.viewModel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.todolist.entities.Note
 import com.example.todolist.model.NoteRepository
@@ -25,6 +26,7 @@ class DetailsViewModel(application: Application): AndroidViewModel(application) 
     }
 
     fun actionSave(body: String){
-        activityStrategy.save(note!!.value, body, repository)
+        Log.d("debug", "actionSave")
+        activityStrategy.save(note, body, repository)
     }
 }

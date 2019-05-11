@@ -2,19 +2,29 @@ package com.example.todolist.model
 
 import android.app.Application
 import android.os.AsyncTask
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.todolist.entities.Note
+import com.example.todolist.global.App
 
 class NoteRepository private constructor(application: Application) {
     private val dao: NoteDao
     private val observableNotes: LiveData<List<Note>>
     init{
-        val database = NotesDatabase.getInstance(application.applicationContext)
+        val database = App.instance?.getDatabase()
+        if(App.instance == null){
+            Log.d("debug", "instance is null")
+        }
+        if(database == null){
+            Log.d("debug", "database is null")
+        }
         dao = database!!.noteDao()
         observableNotes = dao.getAll()
     }
 
     fun insertNotes(note: Note){
+        Log.d("debug", "insert note")
+        Log.d("debug", note.toString())
         InsertAsyncTask(dao).execute(note)
     }
 
@@ -41,7 +51,7 @@ class NoteRepository private constructor(application: Application) {
 
     private class InsertAsyncTask(val dao: NoteDao): AsyncTask<Note, Unit, Unit>(){
         override fun doInBackground(vararg params: Note) {
-            dao.insertAll(params[0]!!)
+            dao.insert(params[0]!!)
         }
     }
 

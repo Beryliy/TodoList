@@ -21,12 +21,12 @@ class MainActivity() : AppCompatActivity() {
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         notes_list_RV.layoutManager = LinearLayoutManager(this)
         var adapter = NotesListAdapter()
-        //adapter.setNotes(mainViewModel.getObservableNotes().value!!)
-        //notes_list_RV.adapter = adapter
-        //val noteObserver = Observer<List<Note>>(){
-            //adapter.setNotes(it)
-        //}
-        //mainViewModel.getObservableNotes().observe(this, noteObserver)
+        notes_list_RV.adapter = adapter
+        adapter.setNotes(mainViewModel.getObservableNotes().value!!)
+        val noteObserver = Observer<List<Note>>(){
+            adapter.setNotes(it)
+        }
+        mainViewModel.getObservableNotes().observe(this, noteObserver)
         add_note_FAB.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, NoteDetailsActivity::class.java)
             startActivity(intent)

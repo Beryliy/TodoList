@@ -14,4 +14,8 @@ data class Note(
     @NotNull
     @ColumnInfo var body : String){
     constructor():this(null, 0, "")
+
+    override fun toString(): String {
+        return "Id = ${id.toString()}\nbody: $body\ntime: ${creationTime.toString()}"
+    }
 }
