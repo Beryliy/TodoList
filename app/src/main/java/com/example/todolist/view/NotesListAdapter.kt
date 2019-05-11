@@ -1,15 +1,29 @@
 package com.example.todolist.view
 
-import android.support.v7.widget.RecyclerView
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.entities.Note
 import java.text.SimpleDateFormat
 
 class NotesListAdapter(): RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val note = notes[position]
+        holder.changeDateTV.setText(castIntoDate(note.creationTime))
+        holder.changeTimeTV.setText(castIntoTime(note.creationTime))
+        holder.noteBodyTV.setText(note.body)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.note_recyclerview_item, parent, false)
+        return ViewHolder(view)
+    }
+
     private lateinit var notes: List<Note>
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val changeDateTV: TextView
@@ -32,18 +46,6 @@ class NotesListAdapter(): RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
         notes!! += note
         notifyDataSetChanged()
     }*/
-
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.note_recyclerview_item, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val note = notes[position]
-        holder?.changeDateTV?.setText(castIntoDate(note.creationTime))
-        holder?.changeTimeTV?.setText(castIntoTime(note.creationTime))
-        holder?.noteBodyTV?.setText(note.body)
-    }
 
     override fun getItemCount() = notes.size
 
