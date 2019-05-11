@@ -1,7 +1,9 @@
 package com.example.todolist.view
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -25,5 +27,9 @@ class MainActivity() : AppCompatActivity() {
             //adapter.setNotes(it)
         //}
         //mainViewModel.getObservableNotes().observe(this, noteObserver)
+        add_note_FAB.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, NoteDetailsActivity::class.java)
+            startActivity(intent)
+        })
     }
 }

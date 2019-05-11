@@ -14,7 +14,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/add_note_fab"
+            android:id="@+id/add_note_FAB"
             android:clickable="true"
             android:focusable="true"
             android:layout_gravity="bottom|end"
