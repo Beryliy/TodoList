@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TodoList</string>
     <string name="save_note">Save</string>
+    <string name="saveInformMessege">Note was saved</string>
 
     <!--values for details activity menu-->
     <string name="delete">delete</string>

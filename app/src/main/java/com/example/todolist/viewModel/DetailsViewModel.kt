@@ -32,6 +32,10 @@ class DetailsViewModel(application: Application): AndroidViewModel(application) 
         activityStrategy.save(note, body, repository)
     }
 
+    fun actionDelete(){
+        repository.deleteNote(note?.value!!)
+    }
+
     fun insertDummyData(){
         val note = Note(0,34534, "text")
         repository.insertNotes(note)
