@@ -1,13 +1,14 @@
 package com.example.todolist.view
 
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+
 import com.example.todolist.R
 import com.example.todolist.entities.Note
 import com.example.todolist.viewModel.MainViewModel
@@ -20,13 +21,14 @@ class MainActivity() : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         notes_list_RV.layoutManager = LinearLayoutManager(this)
-        var adapter = NotesListAdapter()
-        notes_list_RV.adapter = adapter
-        adapter.setNotes(mainViewModel.getObservableNotes().value!!)
-        val noteObserver = Observer<List<Note>>(){
-            adapter.setNotes(it)
+        val adapter = NotesListAdapter()
+        val noteListObserver = Observer<List<Note>>(){
+            if(it !== null){
+                adapter.setNotes(it)
+            }
         }
-        mainViewModel.getObservableNotes().observe(this, noteObserver)
+        notes_list_RV.adapter = adapter
+        mainViewModel.getObservableNotes().observe(this, noteListObserver)
         add_note_FAB.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, NoteDetailsActivity::class.java)
             startActivity(intent)

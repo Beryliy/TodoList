@@ -16,7 +16,6 @@
             android:id="@+id/save_note_B"
             android:text="@string/save_note"
             android:layout_below="@id/note_body_ET"
-            android:layout_alignParentRight="true"
-    />
+            android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

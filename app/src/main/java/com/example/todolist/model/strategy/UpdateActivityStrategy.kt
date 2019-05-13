@@ -1,6 +1,7 @@
-package com.example.todolist.view
+package com.example.todolist.model.strategy
 
-import androidx.lifecycle.LiveData
+
+import android.arch.lifecycle.LiveData
 import com.example.todolist.entities.Note
 import com.example.todolist.model.NoteRepository
 

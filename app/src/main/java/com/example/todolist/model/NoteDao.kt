@@ -1,7 +1,8 @@
 package com.example.todolist.model
 
-import androidx.lifecycle.LiveData
-import androidx.room.*
+
+import android.arch.lifecycle.LiveData
+import android.arch.persistence.room.*
 import com.example.todolist.entities.Note
 
 @Dao

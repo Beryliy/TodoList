@@ -1,9 +1,9 @@
 package com.example.todolist.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
+
 import com.example.todolist.entities.Note
 import com.example.todolist.model.NoteRepository
 
@@ -14,7 +14,5 @@ class MainViewModel(application: Application): AndroidViewModel(application){
         repository = NoteRepository.getInstance(application)
         observableNotes = repository!!.getAllNotes()
     }
-
-
     fun getObservableNotes() = observableNotes
 }
