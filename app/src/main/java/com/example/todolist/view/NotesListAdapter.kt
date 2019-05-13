@@ -22,7 +22,6 @@ class NotesListAdapter(): RecyclerView.Adapter<NotesListAdapter.ViewHolder>(){
         holder.noteBodyTV.setText(note.body)
         holder.itemView.setOnClickListener({
             val intent = Intent(it.context, NoteDetailsActivity::class.java)
-            Log.d("debug", "note id = ${notes[position].id}")
             intent.putExtra("noteId", notes[position].id)
             startActivity(it.context, intent, null)
         })

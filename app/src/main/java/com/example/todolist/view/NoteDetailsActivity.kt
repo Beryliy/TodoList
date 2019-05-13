@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
 import android.widget.Toast
 import com.example.todolist.R
 import com.example.todolist.entities.Note
@@ -21,6 +22,7 @@ class NoteDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_details)
         detailsViewModel = ViewModelProviders.of(this).get(DetailsViewModel::class.java)
+        currentNoteId = intent.getIntExtra("noteId", -1)
         detailsViewModel.activityCreationHandler(currentNoteId)
         val noteObserver = Observer<Note>{
             if(it !== null){
@@ -30,10 +32,12 @@ class NoteDetailsActivity : AppCompatActivity() {
         detailsViewModel.note?.observe(this, noteObserver)
     }
 
-    override fun onStop() {
-        super.onStop()
-        detailsViewModel.actionSave(note_body_ET.text.toString())
-        Toast.makeText(this, resources.getText(R.string.saveInformMessege), Toast.LENGTH_SHORT).show()
+    override fun onBackPressed() {
+        if(!note_body_ET.text.isEmpty()){
+            detailsViewModel.actionSave(note_body_ET.text.toString())
+            Toast.makeText(this, resources.getText(R.string.saveInformMessege), Toast.LENGTH_SHORT).show()
+        }
+        super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -49,9 +53,11 @@ class NoteDetailsActivity : AppCompatActivity() {
         when(item?.itemId){
             R.id.action_delete -> {
                 detailsViewModel.actionDelete()
+                finish()
                 return true
             }
             R.id.action_share -> {
+                detailsViewModel.actionShare(this)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

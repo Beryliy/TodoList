@@ -3,7 +3,14 @@ package com.example.todolist.viewModel
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
+import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
+import android.widget.Toast
+import com.example.todolist.R
 import com.example.todolist.entities.Note
 import com.example.todolist.model.NoteRepository
 import com.example.todolist.model.strategy.CreateActivityStrategy
@@ -36,8 +43,18 @@ class DetailsViewModel(application: Application): AndroidViewModel(application) 
         repository.deleteNote(note?.value!!)
     }
 
-    fun insertDummyData(){
-        val note = Note(0,34534, "text")
-        repository.insertNotes(note)
+    fun actionShare(context: Context){
+        val intent = Intent().apply {
+            Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, note?.value!!.body)
+            type = "text/plain"
+        }
+        val activities: List<ResolveInfo> = context.packageManager.queryIntentActivities(intent,
+            PackageManager.MATCH_DEFAULT_ONLY)
+        if(!activities.isEmpty()){
+            startActivity(context, intent, null)
+        }else{
+            Toast.makeText(context, context.resources.getText(R.string.unableSharigMessege), Toast.LENGTH_SHORT).show()
+        }
     }
 }

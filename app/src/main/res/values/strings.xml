@@ -2,6 +2,7 @@
     <string name="app_name">TodoList</string>
     <string name="save_note">Save</string>
     <string name="saveInformMessege">Note was saved</string>
+    <string name="unableSharigMessege">Error! No applications for sharing note.</string>
 
     <!--values for details activity menu-->
     <string name="delete">delete</string>

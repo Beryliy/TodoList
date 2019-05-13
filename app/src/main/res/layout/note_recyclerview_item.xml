@@ -9,19 +9,28 @@
             android:id="@+id/change_date_TV"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_margin="@dimen/date_and_time_margin"/>
+            android:layout_marginTop="@dimen/date_and_time_margin_topbottom"
+            android:layout_marginBottom="@dimen/date_and_time_margin_topbottom"
+            android:layout_marginLeft="@dimen/date_and_time_margin_sides"
+            android:layout_marginRight="@dimen/date_and_time_margin_sides"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/change_time_TV"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/date_and_time_margin"/>
+            android:layout_marginTop="@dimen/date_and_time_margin_topbottom"
+            android:layout_marginBottom="@dimen/date_and_time_margin_topbottom"
+            android:layout_marginLeft="@dimen/date_and_time_margin_sides"
+            android:layout_marginRight="@dimen/date_and_time_margin_sides"/>
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/note_body_TV"
+            android:maxLength="100"
             android:layout_below="@id/change_date_TV"
-            android:layout_margin="@dimen/note_body_margin"/>
-
+            android:layout_marginTop="@dimen/note_body_margin_topbottom"
+            android:layout_marginBottom="@dimen/note_body_margin_topbottom"
+            android:layout_marginLeft="@dimen/note_body_margin_sides"
+            android:layout_marginRight="@dimen/note_body_margin_sides"/>
 </RelativeLayout>
