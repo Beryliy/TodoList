@@ -2,21 +2,28 @@ package com.example.todolist.model
 
 import android.app.Application
 import android.arch.lifecycle.LiveData
+import android.arch.paging.DataSource
+import android.arch.paging.PositionalDataSource
 import android.os.AsyncTask
 import android.util.Log
 import com.example.todolist.entities.Note
 import com.example.todolist.global.App
 
-class NoteRepository private constructor(application: Application) {
+class NoteRepository private constructor(application: Application){
     private val dao: NoteDao
-    private val observableNotes: LiveData<List<Note>>
+    private var sourceFactory: DataSource.Factory<Int, Note>
     init{
         val database = App.instance?.getDatabase()
         dao = database!!.noteDao()
-        observableNotes = dao.getAll()
-        if(observableNotes.value == null){
-            Log.d("debug", "observableNotes.value = null")
-        }
+        sourceFactory = dao.getNotesNewFirst()
+    }
+
+    fun selectFactoryNewFirst(){
+        sourceFactory = dao.getNotesNewFirst()
+    }
+
+    fun selectFactoryOldFirst(){
+        sourceFactory = dao.getNotesOldFirst()
     }
 
     fun insertNotes(note: Note){
@@ -34,7 +41,7 @@ class NoteRepository private constructor(application: Application) {
         DeleteAsyncTask(dao).execute(note)
     }
 
-    fun getAllNotes() = observableNotes
+    fun getSourceFactory() = sourceFactory
 
     fun getNoteById(id: Int): LiveData<Note>? {
         if(id == -1){
@@ -64,9 +71,6 @@ class NoteRepository private constructor(application: Application) {
         }
     }
 
-    private class GetByIdAsyncTask(val dao: NoteDao): AsyncTask<Int, Unit, LiveData<Note>>(){
-        override fun doInBackground(vararg params: Int?): LiveData<Note> = dao.getById(params[0]!!)
-    }
     companion object{
         private var noteRepository: NoteRepository? = null
         fun getInstance(application: Application): NoteRepository? {

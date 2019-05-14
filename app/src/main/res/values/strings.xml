@@ -7,4 +7,7 @@
     <!--values for details activity menu-->
     <string name="delete">delete</string>
     <string name="share">share</string>
+    <!--values for sort menu-->
+    <string name="desc_order">From new to old</string>
+    <string name="asc_order">From old to new</string>
 </resources>

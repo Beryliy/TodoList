@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/sortOrderDESC"
+            android:title="@string/desc_order"
+            app:showAsAction="never"/>
+    <item
+            android:id="@+id/sortOrderASC"
+            android:title="@string/asc_order"
+            app:showAsAction="never"/>
+</menu>
