@@ -1,14 +1,13 @@
-package com.example.todolist.model.pagination
+package com.example.todolist.view.notesCatalog.pagination
 
 import android.content.Intent
-import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.example.todolist.R
 import com.example.todolist.entities.Note
-import com.example.todolist.view.NoteDetailsActivity
+import com.example.todolist.view.noteDetails.NoteDetailsActivity
 import java.text.SimpleDateFormat
 
 class NoteViewHolder(view: View): RecyclerView.ViewHolder(view) {

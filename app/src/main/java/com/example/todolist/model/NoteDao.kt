@@ -14,6 +14,9 @@ interface NoteDao {
     @Query("SELECT * FROM note ORDER BY creationTime ASC")
     fun getNotesOldFirst(): DataSource.Factory<Int, Note>
 
+    @Query("SELECT * FROM note WHERE body LIKE :query")
+    fun getByContent(query: String): DataSource.Factory<Int, Note>
+
     @Query("SELECT * FROM note WHERE id = :id")
     fun getById(id: Int): LiveData<Note>
 

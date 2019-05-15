@@ -10,4 +10,6 @@
     <!--values for sort menu-->
     <string name="desc_order">From new to old</string>
     <string name="asc_order">From old to new</string>
+    <!--values for mainActivity-->
+    <string name="nothig_to_show">There is nothing to show</string>
 </resources>

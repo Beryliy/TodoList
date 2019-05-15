@@ -13,7 +13,7 @@ import com.example.todolist.entities.Note
 import com.example.todolist.model.NoteRepository
 
 class MainViewModel(application: Application): AndroidViewModel(application){
-    //private var sortOrder: Int
+    private var sortOrder: Int
     private val listConfig: PagedList.Config
     private var observableNotes: LiveData<PagedList<Note>>
     private val repository: NoteRepository?
@@ -23,26 +23,44 @@ class MainViewModel(application: Application): AndroidViewModel(application){
             setPageSize(20).
             build()
         repository = NoteRepository.getInstance(application)
-        //sortOrder = NEW_FIRST
+        sortOrder = NEW_FIRST
         observableNotes = LivePagedListBuilder<Int, Note>(repository?.getSourceFactory()!!, listConfig).build()
 
     }
     fun setDecreaseOrder(){
-        //if(sortOrder != NEW_FIRST){
+        if(sortOrder != NEW_FIRST){
         Log.d("debug", "")
             repository?.selectFactoryNewFirst()
             observableNotes = LivePagedListBuilder<Int, Note>(repository?.getSourceFactory()!!, listConfig).build()
-            //sortOrder = NEW_FIRST
-        //}
+            sortOrder = NEW_FIRST
+        }
     }
 
     fun setIncreaseOrder(){
-        //if(sortOrder != OLD_FIRST){
+        if(sortOrder != OLD_FIRST){
         Log.d("debug", "model sort = old first")
             repository?.selectFactoryOldFirst()
             observableNotes = LivePagedListBuilder<Int, Note>(repository?.getSourceFactory()!!, listConfig).build()
-            //sortOrder = OLD_FIRST
-        //}
+            sortOrder = OLD_FIRST
+        }
+    }
+
+    fun searchForContent(query: String){
+        if(query.isEmpty()){
+            when(sortOrder){
+                NEW_FIRST -> {
+                    repository?.selectFactoryNewFirst()
+                    observableNotes = LivePagedListBuilder<Int, Note>(repository?.getSourceFactory()!!, listConfig).build()
+                }
+                OLD_FIRST -> {
+                    repository?.selectFactoryOldFirst()
+                    observableNotes = LivePagedListBuilder<Int, Note>(repository?.getSourceFactory()!!, listConfig).build()
+                }
+            }
+        }else{
+            repository?.selectFactoryWithQuery(query)
+            observableNotes = LivePagedListBuilder<Int, Note>(repository?.getSourceFactory()!!, listConfig).build()
+        }
     }
 
     fun getObservableNotes() = observableNotes

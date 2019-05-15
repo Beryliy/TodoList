@@ -1,4 +1,4 @@
-package com.example.todolist.model.pagination
+package com.example.todolist.view.notesCatalog.pagination
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil

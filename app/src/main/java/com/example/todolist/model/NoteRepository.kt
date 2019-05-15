@@ -26,9 +26,11 @@ class NoteRepository private constructor(application: Application){
         sourceFactory = dao.getNotesOldFirst()
     }
 
+    fun selectFactoryWithQuery(query: String){
+        sourceFactory = dao.getByContent("%$query%")
+    }
+
     fun insertNotes(note: Note){
-        Log.d("debug", "insert note")
-        //Log.d("debug", note.toString())
         val asyncTask = InsertAsyncTask(dao)
         asyncTask.execute(note)
     }

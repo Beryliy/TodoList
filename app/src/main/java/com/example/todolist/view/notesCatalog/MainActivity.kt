@@ -1,4 +1,4 @@
-package com.example.todolist.view
+package com.example.todolist.view.notesCatalog
 
 
 import android.arch.lifecycle.Observer
@@ -15,8 +15,9 @@ import android.view.View
 
 import com.example.todolist.R
 import com.example.todolist.entities.Note
-import com.example.todolist.model.pagination.NoteDiffUtilCallBack
-import com.example.todolist.model.pagination.NotePagingAdapter
+import com.example.todolist.view.notesCatalog.pagination.NoteDiffUtilCallBack
+import com.example.todolist.view.notesCatalog.pagination.NotePagingAdapter
+import com.example.todolist.view.noteDetails.NoteDetailsActivity
 import com.example.todolist.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -32,14 +33,34 @@ class MainActivity() : AppCompatActivity() {
         noteListObserver = Observer<PagedList<Note>>(){
             if(it !== null){
                 adapter.submitList(it)
-                Log.d("debug", "adapter data changed")
+                if(!it.isEmpty()){
+                    empty_view.visibility = View.GONE
+                    notes_list_RV.visibility = View.VISIBLE
+                }else{
+                    notes_list_RV.visibility = View.GONE
+                    empty_view.visibility = View.VISIBLE
+                }
             }
         }
         notes_list_RV.adapter = adapter
-        mainViewModel.getObservableNotes().observe(this, noteListObserver)
+        subscribeOnObservableNotes()
         add_note_FAB.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, NoteDetailsActivity::class.java)
             startActivity(intent)
+        })
+        notes_SV.isActivated = false
+        notes_SV.onActionViewExpanded()
+        notes_SV.isIconified = false
+        notes_SV.setOnQueryTextListener(object : android.support.v7.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                mainViewModel.searchForContent(newText!!)
+                subscribeOnObservableNotes()
+                return true
+            }
         })
     }
 
@@ -52,17 +73,19 @@ class MainActivity() : AppCompatActivity() {
         when(item?.itemId){
             R.id.sortOrderDESC -> {
                 mainViewModel.setDecreaseOrder()
-                mainViewModel.getObservableNotes().observe(this, noteListObserver)
-                Log.d("debug", "desk in menu chosed")
+                subscribeOnObservableNotes()
                 return true
             }
             R.id.sortOrderASC -> {
                 mainViewModel.setIncreaseOrder()
-                mainViewModel.getObservableNotes().observe(this, noteListObserver)
-                Log.d("debug", "asc in menu chosed")
+                subscribeOnObservableNotes()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun subscribeOnObservableNotes(){
+        mainViewModel.getObservableNotes().observe(this, noteListObserver)
     }
 }

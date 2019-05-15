@@ -1,13 +1,11 @@
-package com.example.todolist.view
+package com.example.todolist.view.noteDetails
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.Window
 import android.widget.Toast
 import com.example.todolist.R
 import com.example.todolist.entities.Note
