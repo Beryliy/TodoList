@@ -2,7 +2,9 @@ package com.example.todolist.view.noteDetails
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -31,11 +33,23 @@ class NoteDetailsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if(!note_body_ET.text.isEmpty()){
-            detailsViewModel.actionSave(note_body_ET.text.toString())
-            Toast.makeText(this, resources.getText(R.string.saveInformMessege), Toast.LENGTH_SHORT).show()
-        }
-        super.onBackPressed()
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(resources.getText(R.string.exit))
+        builder.setMessage(resources.getText(R.string.exit_confirm))
+        builder.setCancelable(false)
+        builder.setPositiveButton(
+            resources.getText(R.string.yes),
+            {dialog, which ->
+                if(!note_body_ET.text.isEmpty()){
+                    detailsViewModel.actionSave(note_body_ET.text.toString())
+                    Toast.makeText(this, resources.getText(R.string.saveInformMessege), Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
+        builder.setNegativeButton(
+            resources.getText(R.string.no),
+            {dialog, which -> dialog.cancel()}
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

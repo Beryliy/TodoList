@@ -12,4 +12,8 @@
     <string name="asc_order">From old to new</string>
     <!--values for mainActivity-->
     <string name="nothig_to_show">There is nothing to show</string>
+    <string name="exit">Exit</string>
+    <string name="exit_confirm">Do you want to close application?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
