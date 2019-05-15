@@ -3,8 +3,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
+        android:windowSoftInputMode="stateHidden"
         tools:context=".view.notesCatalog.MainActivity">
     <LinearLayout
             android:layout_width="match_parent"
@@ -16,37 +17,45 @@
                 android:id="@+id/notes_SV"
                 android:layout_weight="1">
         </android.support.v7.widget.SearchView>
-        <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:id="@+id/notes_list_RV"
-                android:layout_weight="9">
-        </android.support.v7.widget.RecyclerView>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:id="@+id/empty_view"
-                android:orientation="vertical"
-                android:layout_weight="9"
-                android:visibility="gone">
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/empty_view_img"
-                    android:src="@drawable/note_image"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/empty_view_TV"
-                    android:text="@string/nothig_to_show"
-                    android:textSize="24sp"
-                    android:textStyle="bold"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:orientation="vertical"
+                      android:layout_weight="10">
+            <requestFocus/>
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/notes_list_RV">
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/empty_view"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                <ImageView
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        android:id="@+id/empty_view_img"
+                        android:src="@drawable/note_image"
+                        android:layout_gravity="center"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/empty_view_TV"
+                        android:text="@string/nothig_to_show"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/fab_diameter"
+            android:layout_height="@dimen/fab_diameter"
+            app:fabCustomSize="@dimen/fab_diameter"
             android:id="@+id/add_note_FAB"
+            android:src="@drawable/ic_action_add"
             android:clickable="true"
             android:focusable="true"
             android:layout_gravity="bottom|end"

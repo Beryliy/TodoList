@@ -33,23 +33,11 @@ class NoteDetailsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(resources.getText(R.string.exit))
-        builder.setMessage(resources.getText(R.string.exit_confirm))
-        builder.setCancelable(false)
-        builder.setPositiveButton(
-            resources.getText(R.string.yes),
-            {dialog, which ->
-                if(!note_body_ET.text.isEmpty()){
-                    detailsViewModel.actionSave(note_body_ET.text.toString())
-                    Toast.makeText(this, resources.getText(R.string.saveInformMessege), Toast.LENGTH_SHORT).show()
-                }
-            }
-        )
-        builder.setNegativeButton(
-            resources.getText(R.string.no),
-            {dialog, which -> dialog.cancel()}
-        )
+        if(!note_body_ET.text.isEmpty()){
+            detailsViewModel.actionSave(note_body_ET.text.toString())
+            Toast.makeText(this, resources.getText(R.string.saveInformMessege), Toast.LENGTH_SHORT).show()
+        }
+        super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

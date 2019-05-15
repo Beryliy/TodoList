@@ -5,4 +5,6 @@
     <dimen name="date_and_time_margin_sides">12dp</dimen>
     <dimen name="note_body_margin_topbottom">2dp</dimen>
     <dimen name="note_body_margin_sides">12dp</dimen>
+    <dimen name="fab_diameter">90dp</dimen>
+    <dimen name="image_size">240dp</dimen>
 </resources>

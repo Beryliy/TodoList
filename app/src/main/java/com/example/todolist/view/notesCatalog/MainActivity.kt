@@ -4,14 +4,17 @@ package com.example.todolist.view.notesCatalog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.arch.paging.PagedList
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 
 import com.example.todolist.R
 import com.example.todolist.entities.Note
@@ -62,6 +65,8 @@ class MainActivity() : AppCompatActivity() {
                 return true
             }
         })
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(notes_SV.windowToken, 0);
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,6 +88,23 @@ class MainActivity() : AppCompatActivity() {
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(resources.getText(R.string.exit))
+        builder.setMessage(resources.getText(R.string.exit_confirm))
+        builder.setCancelable(false)
+        builder.setPositiveButton(
+            resources.getText(R.string.yes),
+            {dialog, which ->
+                super.onBackPressed()
+            }
+        )
+        builder.setNegativeButton(
+            resources.getText(R.string.no),
+            {dialog, which -> dialog.cancel()}
+        )
     }
 
     private fun subscribeOnObservableNotes(){
