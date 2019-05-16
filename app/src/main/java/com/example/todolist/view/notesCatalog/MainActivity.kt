@@ -105,6 +105,7 @@ class MainActivity() : AppCompatActivity() {
             resources.getText(R.string.no),
             {dialog, which -> dialog.cancel()}
         )
+        builder.create().show()
     }
 
     private fun subscribeOnObservableNotes(){
